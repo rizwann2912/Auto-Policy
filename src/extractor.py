@@ -60,6 +60,22 @@ class PolicyExtractor:
         except Exception as e:
             print(f'❌ User rights extraction failed: {str(e)}')
 
+        # Extract retention duration (prioritize QA, fallback to keyword)
+        print("\n--- Starting Retention Extraction ---")
+        initial_retention = basic_facts.get('retention_duration', 'unknown') # Get keyword-based retention
+        try:
+            qa_retention = self.qa_retention_extraction(text)
+            # Use QA result if it's not 'Not found' or 'Error'
+            if qa_retention not in ["Not found (QA API)", "Error (QA API)"]:
+                basic_facts['retention_duration'] = qa_retention
+                print("✅ Completed retention extraction (QA model used)")
+            else:
+                basic_facts['retention_duration'] = initial_retention # Fallback to keyword
+                print("✅ Completed retention extraction (Keyword fallback used)")
+        except Exception as e:
+            print(f'❌ Retention extraction failed: {str(e)} - falling back to keyword')
+            basic_facts['retention_duration'] = initial_retention # Ensure fallback on error
+
         return basic_facts
     
     def keyword_extraction(self, text):
@@ -78,7 +94,10 @@ class PolicyExtractor:
         retention_patterns = [
             r'(\d+)\s*(year|month|day)s?',
             r'(indefinitely|permanently)',
-            r'until.*?(delete|remove)'
+            r'until.*?(delete|remove)',
+            r'as long as (necessary|needed)',
+            r'as required by law',
+            r'for the duration of your (account|relationship)'
         ]
         
         retention_duration = 'unknown'
@@ -180,34 +199,6 @@ class PolicyExtractor:
 
         return results
 
-    def nlp_retention_extraction(self, text):
-        """
-        Extracts data retention duration using zero-shot classification.
-        """
-        if self.classifier is None:
-            return "N/A (Classifier not initialized)"
-        
-        print("\n--- Zero-Shot Retention Classification ---")
-        # Define candidate labels for retention duration
-        # More specific labels can be added based on common policy terms
-        retention_labels = [
-            "retains data indefinitely",
-            "retains data for 1 year",
-            "retains data for 6 months",
-            "retains data for 3 months",
-            "retains data for 30 days",
-            "retains data for less than 30 days",
-            "does not specify data retention period"
-        ]
-        
-        try:
-            result = self.classifier(text, retention_labels, multi_label=False)
-            print(f"Zero-Shot Retention Raw Result: {result}")
-            return result['labels'][0]  # Return the most likely label
-        except Exception as e:
-            print(f"❌ Error in Zero-Shot Retention Classification: {str(e)}")
-            return "Error (Zero-Shot)"
-
     def qa_retention_extraction(self, text):
         """
         Extracts data retention duration using a Question Answering model via Hugging Face API.
@@ -215,7 +206,6 @@ class PolicyExtractor:
         print("\n--- QA Retention Extraction (API) ---")
         question = "How long is user data retained?"
         try:
-            # Use the new API querying method
             result = self._query_api("deepset/roberta-base-squad2", {
                 "inputs": {
                     "question": question,
@@ -224,8 +214,6 @@ class PolicyExtractor:
             })
             print(f"QA Retention Raw Result: {result}")
             
-            # The API result is usually a dictionary with 'answer' and 'score'
-            # Check for confident answers
             if isinstance(result, dict) and 'answer' in result and result['score'] > 0.1:
                 return result['answer']
             else:
