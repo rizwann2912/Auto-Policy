@@ -22,8 +22,10 @@ This application helps everyday users understand lengthy and complex privacy pol
     *   Right to data correction.
 *   **Persistent Policy Library**: Save policies for different websites to a local database (`policies.db`), allowing you to revisit and analyze them later.
 *   **Sample Policies**: Load pre-included privacy policies from well-known companies for quick demonstration and analysis.
-*   **Hugging Face API Powered**: Leverages advanced NLP models (Zero-shot classification, Summarization, Question Answering) from Hugging Face's Inference API, ensuring powerful analysis without requiring local model downloads.
-
+*   **Hugging Face API Powered**: Leverages advanced NLP models from Hugging Face's Inference API, ensuring powerful analysis without requiring local model downloads:
+    *   **Zero-shot classification**: `facebook/bart-large-mnli`
+    *   **Summarization**: `facebook/bart-large-cnn`
+    *   **Question Answering**: `deepset/roberta-base-squad2`
 ---
 
 ## 🚀 Getting Started
