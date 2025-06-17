@@ -15,7 +15,7 @@ class PolicyExtractor:
     def __init__(self):
         print("\n=== Initializing Policy Extractor ===")
         self.classifier = None
-        # self.qa_pipeline will not be initialized locally
+        # self.qa_pipeline will not be initialized locally as we use API
 
         try:
             print("Attempting to load zero-shot classification model...")
@@ -28,7 +28,7 @@ class PolicyExtractor:
         except Exception as e:
             print(f"❌ Error initializing zero-shot classifier: {str(e)}")
 
-        # No local QA pipeline initialization here
+        # No local QA pipeline initialization here as we're using the API
 
     def _query_qa_api(self, question: str, context: str):
         API_URL = "https://api-inference.huggingface.co/models/deepset/roberta-base-squad2"
