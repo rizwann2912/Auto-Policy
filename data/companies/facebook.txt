@@ -1,0 +1,84 @@
+United States Regional Privacy Notice
+We updated our policy on May 23, 2025. 
+About this Notice
+Effective from 23 May 2025 |  | 
+This United States Regional Privacy Notice (“Notice”) is for people living in the United States and supplements the Meta, the, the, and the, For Portal, Facebook View, and Meta Platforms Technologies products, please see their
+This Notice explains how we, Meta, collect, use, and disclose your Personal Information. It also describes how to exercise your rights under applicable US privacy laws.
+When we say “Personal Information” in this Notice, we mean information that identifies, relates to, describes, is reasonably capable of being associated with, or could reasonably be linked with you, directly or indirectly. Personal Information does not include information that cannot be reasonably linked to you. When data is deidentified (as defined under applicable US privacy laws), we maintain it in deidentified form and do not attempt to reidentify the information.
+How we collect, use, and disclose Personal Information
+To provide the products or features offered by Meta (“"), we process information about you, including Personal Information, whether or not you have an account or are logged in. The best way to learn about the types of information we collect and how we use them is to review theand the privacy policies of our other products.
+Subject to the limitations we describe in our privacy policies, we may disclose your Personal Information for business purposes, with strict restrictions on how our partners can use and disclose the data we provide. We may also disclose it at your direction or in other ways that are in accordance with applicable US privacy laws. We don't “share” your Personal Information, as defined in the California Consumer Privacy Act (“CCPA”). We also don't sell any of your Personal Information, and we never will.
+The information we collect, use and disclose about you will vary depending on how you interact with Meta and our products. For the products covered by this Notice, here's a summary of:
+The categories of Personal Information we may have collected about you over the past 12 months
+How we may use your Personal Information
+To whom we may have disclosed that information
+Categories of Personal Information we collect may include:
+Examples of how Personal Information may be used include:
+Parties with whom each category of Personal Information may be disclosed include:
+Identifiers;
+Characteristics of protected classifications;
+Commercial information;
+Photos and videos, which may include face imagery;
+Internet or other electronic network activity information, including browser and app logs, content you view or engage with, and app, browser and device information;
+Location-related information;
+Audio or visual information, including photos, videos, and voice recordings;
+Professional or employment information;
+Education information;
+Information derived from other Personal Information about you, which could include your preferences, interests, and other information used to personalize your experience; and
+Other information you provide
+We may also collect sensitive personal information (as defined by applicable US privacy laws), which may include:
+Social security, driver's license, state identification card or passport number;
+Precise geolocation;
+Information about your racial or ethnic origin or religious views or union membership;
+The content of messages you send and receive, which are considered sensitive personal information under CCPA;
+Information about your sexual orientation;
+Information about your health;
+Information about your citizenship, immigration status or national origin;
+Information about your status as transgender or non-binary; and
+Face imagery or voice recordings which may be used to identify you when you use relevant features.
+Providing, personalizing, and improving our products, including to,
+Providing measurement, analytics, and other business services;
+Promoting safety, integrity, and security;
+Providing marketing communications to you;
+communicating with you; and
+Researching and innovating for social good.
+For categories of sensitive personal information that we collect, we will only use or disclose it either with your specific consent when required, or as otherwise permitted by law, including the CCPA.  about the permitted purposes under CCPA.
+People and accounts you share and communicate with;
+People and accounts with which others share or reshare content about you;
+If you're connected to a supervised account user, parents or guardians of the supervised account users whom you are connected to;
+Apps, websites, and third-party integrations on or using our products;
+New owners in the event of a change of ownership or control of all or part of our products or their assets changes;
+Partners, including partners offering goods and services on our products, as explained in our,
+Vendors, including measurement and marketing vendors;
+Service providers;
+Third parties, including external researchers and academics;
+Law enforcement or other third parties in connection with legal requests, to comply with applicable law or to prevent harm; and
+Sources of Personal Information
+Depending on how you interact with Meta and our products, the categories of sources from which we've collected Personal Information about you may include:
+You: We receive Personal Information from the information that you provide. For example, we collect the content, communications, and other information you provide when you use our products, including when you sign up for an account, create or share content, and message or communicate with others. We collect information about the people, pages, accounts, hashtags, and groups you are connected to, and how you interact with them across our products, such as the people you communicate with the most or the groups you are part of. We also collect information about how you use our products, including ads we serve on and off our products, such as the types of content you view or engage with, the features you use, the actions you take, the people or accounts you interact with, and the time, frequency, and duration of your activities.
+Other people: We may also receive and analyze content, communications, and information about you that other people provide when they use our products, such as when others share or comment on a photo of you, send a message to you, or upload, sync, or import your contact information.
+Your device(s): We collect information from and about the computers, phones, connected TVs, and other web-connected devices you use that integrate with our products, and we combine this information across different devices you use.
+Meta Companies: We receive information from otheraccording to their terms and policies and as permitted by applicable law. In some cases, we act as a service provider for other Meta Companies, and act on their behalf and in accordance with their instructions and terms.
+Partners, vendors and third parties: Advertisers, app developers, and publishers and other partners can send us information for business purposes including through the Meta Business Tools they use, our social plugins (such as the Like button), Facebook Login, our APIs and SDKs, or the Meta pixel. These partners provide information about your activities on and off our products—including information about your device, websites you visit, apps you use, games you play, and purchases you make. We also receive information about your online and offline actions, and purchases from third-party data providers who have the rights to provide us with your information. These partners collect your information when you visit their websites or use their services or through third parties they work with. We require each of these partners to have rights to collect, use, and disclose your information before providing any information to us. We also obtain information from publicly available sources, research institutions and professional and non-profit groups, including companies or organizations that provide content including videos, photos, or audio.
+How long do we keep your Personal Information?
+We keep Personal Information, including sensitive Personal Information, as long as we need it to provide our products, comply with legal obligations or protect our or others' interests. We decide how long we need information on a case-by-case basis.
+Here's what we consider when we decide:
+If we need it to operate or provide our products.
+The feature we use it for, and how that feature works.
+How long we need to retain the information to comply with certain legal obligations.
+If we need it for other legitimate purposes, such as to prevent harm; investigate possible violations of our terms or policies; promote safety, security and integrity; or protect ourselves, including our rights, property or products.
+Learn more in the “Why we may preserve your information longer” section of the Meta Privacy Policy,
+How can you exercise your rights provided under applicable US privacy laws?
+Depending on where you live and subject to certain exceptions, you may have some or all of the following rights:
+Right to Know: The right to request that we disclose to you the Personal Information we collect, use, or disclose, and information about our data practices. For residents of certain states, this may include a list of third parties (as defined by applicable law) to whom we have disclosed your Personal Information.
+Right to Request Correction: The right to request that we correct inaccurate Personal Information that we maintain about you.
+Right to Request Deletion: The right to request that we delete your Personal Information that we have collected from or about you.
+Right to Opt Out of Targeted Advertising: The right to opt out of the processing of your Personal Information for purposes that may be considered “targeted advertising” under applicable US privacy laws, including information obtained from your activities on nonaffiliated websites or online applications.
+Right to Non-Discrimination: The right not to receive discriminatory treatment for exercising your privacy rights.
+To submit a request to exercise your rights, and as applicable, to appeal a consumer rights action, please visit this,
+Here's how you can exercise the right to opt out of targeted advertising:
+For ads you see through Meta Products, visit the “Activity information from ad partners” section inor visit the “Accounts” section in Accounts Center to control how your information is combined and used across your accounts, including for ads.
+Depending on where you live, you may also see ads on other apps and websites about Meta Products or services which use your activity on Meta products to tailor the ad. If you have an account with Meta, you can control whether you see these ads when you visit the section titled “Ads about Meta” in, If you do not have an account, you can use theand/or theindustry opt-out platforms, along with your mobile device advertising settings offered by the device manufacturer. Certain ad blockers and tools to restrict cookies can interfere with your ability to opt out through the industry opt out platforms. Different device manufacturers provide different ways to opt out.
+Depending on where you live, you may have the right to opt out of targeted advertising through a Global Privacy Control (GPC) enabled browser setting. If you have this right, when you visit and log in to our websites in a GPC-enabled browser, we will treat our initial receipt of the GPC signal as a valid request to opt-out of targeted advertising, as defined by applicable US privacy laws granting this right. Please note that if you are logged out, our processing of the signal will be limited to the specific browser that you are using. You may need to renew your opt‑out choice if you use a different browser to access our websites. Other than GPC, we do not recognize any "do not track" signals.
+Please note that to protect your information and the integrity of our products, we may need to verify your identity before processing your request. In some cases, we may need to collect additional information to verify your identity, such as a government issued ID.
+Under certain US privacy laws, you may also designate an authorized agent to make these requests on your behalf through the, whether or not you have an account. If you use an authorized agent to submit a request, we may need to collect additional information, such as a government issued ID, to verify your identity before processing your request to protect your information. In most cases, we will facilitate your request through automated tools available through your password-protected account.

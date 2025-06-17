@@ -1,6 +1,7 @@
 import streamlit as st
 import sys
 import os
+from datetime import datetime
 
 # Add src to path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
@@ -8,13 +9,23 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 from summarizer import Policy_Summarizer
 from extractor import PolicyExtractor
 from comparator import PolicyComparator
+from database import init_db, save_policy_to_db, load_policies_from_db
 
 # Page config
 st.set_page_config(
-    page_title="AutoPolicy Analyzer",
+    page_title="Privacy Policy Reader",
     page_icon="🔍",
     layout="wide"
 )
+
+policy_dir = "data/companies"
+available_policies = {
+    "Facebook": "facebook.txt",
+    "AWS": "aws.txt",
+    "OpenAI": "openai.txt",
+    "Microsoft": "microsoft.txt",
+    "InternShala": 'internshala.txt'
+}
 
 # Initialize models (cache them for performance)
 @st.cache_resource
@@ -24,203 +35,154 @@ def load_models():
     comparator = PolicyComparator()
     return summarizer, extractor, comparator
 
-severity_styles = {
-    "high": {
-        "color": "#fff",        # white font
-        "bg": "#8B0000",        # dark red background
-        "icon": "🚨"
-    },
-    "medium": {
-        "color": "#B8860B",     # dark yellow
-        "bg": "#FFFACD",        # light yellow
-        "icon": "⚠️"
-    },
-    "low": {
-        "color": "#4682B4",     # steel blue
-        "bg": "#E0FFFF",        # light blue
-        "icon": "ℹ️"
-    }
-}
+# Initialize database when the app starts
+init_db()
 
-def chunk_text(text, max_tokens=900):
-    words = text.split()
-    chunks = []
-    for i in range(0, len(words), max_tokens):
-        chunk = " ".join(words[i:i+max_tokens])
-        chunks.append(chunk)
-    return chunks
-
-def summarize_policy(self, policy_text):
-    try:
-        with open("prompts/summarization.txt", "r") as f:
-            prompt_template = f.read().strip()
-
-        input_text = f"{prompt_template}\n\n{policy_text}"
-        chunks = chunk_text(input_text, max_tokens=900)  # 900 to be safe
-
-        summaries = []
-        for chunk in chunks:
-            summary = self.summarizer(
-                chunk,
-                max_length=150,
-                min_length=60,
-                do_sample=False
-            )
-            summaries.append(summary[0]['summary_text'])
-
-        # Optionally, summarize the combined summary
-        combined_summary = " ".join(summaries)
-        if len(summaries) > 1:
-            final_summary = self.summarizer(
-                combined_summary,
-                max_length=150,
-                min_length=60,
-                do_sample=False
-            )[0]['summary_text']
-        else:
-            final_summary = combined_summary
-
-        return self._format_as_bullets(final_summary)
-
-    except Exception as e:
-        return f"Error generating summary: {str(e)}"
+def save_policy(website_name, policy_text):
+    """Save a policy to the database"""
+    save_policy_to_db(website_name, policy_text)
 
 def main():
-    st.title("🔍 AutoPolicy: Smart Policy Analyzer")
-    st.markdown("*Powered by Hugging Face Transformers*")
+    st.title("🔍 Privacy Policy Reader")
+    st.markdown("""
+    ### Your Personal Privacy Policy Assistant
+    Paste privacy policies from websites you use to understand what data they collect and how they use it.
+    """)
     
     # Load models
     with st.spinner("Loading AI models..."):
         summarizer, extractor, comparator = load_models()
-    
+
     # Sidebar for sample policies
-    st.sidebar.header("📋 Sample Policies")
-    if st.sidebar.button("Load Startup Policy"):
-        sample_policy = """Our startup collects user email addresses for login. We also use Google Analytics to track page views and user behavior. We retain user data for up to 1 year.
+    st.sidebar.header("📚 Sample Policies")
+    selected_company = st.sidebar.selectbox(
+        "Load a sample policy:", 
+        ["None"] + list(available_policies.keys())
+    )
 
-We do not collect any financial or health-related data. Users may contact us to request data deletion.
-
-We do not share user data with third parties unless legally required."""
-        st.session_state.policy_text = sample_policy
+    if selected_company != "None":
+        with open(os.path.join(policy_dir, available_policies[selected_company]), "r", encoding="utf-8") as f:
+            st.session_state.current_policy = f.read()
+            st.session_state.current_website = selected_company
+    
+    # Sidebar for saved policies (from database)
+    st.sidebar.header("💾 Your Policy Library")
+    
+    # Load saved policies from the database
+    saved_policies = load_policies_from_db()
+    
+    if saved_policies:
+        st.sidebar.subheader("Saved Policies")
+        for website, data in saved_policies.items():
+            if st.sidebar.button(f"📄 {website} (Saved: {data['date']})", key=f"load_{website}"):
+                st.session_state.current_policy = data['text']
+                st.session_state.current_website = website
+    else:
+        st.sidebar.info("No policies saved yet. Analyze a policy to save it!")
     
     # Main interface
-    col1, col2 = st.columns([2, 1])
+    st.subheader("📄 Privacy Policy")
+    website_name = st.text_input("Website Name:", 
+                                 value=st.session_state.get('current_website', ''),
+                                 placeholder="e.g., Facebook, Google, etc.")
+    policy_text = st.text_area(
+        "Paste the privacy policy here:",
+        value=st.session_state.get('current_policy', ''),
+        height=300,
+        placeholder="Copy and paste the privacy policy text here..."
+    )
     
+    col1, col2 = st.columns([1, 1])
     with col1:
-        st.subheader("📄 Privacy Policy")
-        policy_text = st.text_area(
-            "Paste your privacy policy here:",
-            value=st.session_state.get('policy_text', ''),
-            height=300,
-            placeholder="Enter your privacy policy text..."
-        )
+        if st.button("💾 Save Policy", type="secondary", use_container_width=True):
+            if website_name and policy_text:
+                save_policy(website_name, policy_text)
+                st.success(f"Policy for {website_name} saved!")
+            else:
+                st.error("Please enter both website name and policy text!")
     
     with col2:
-        st.subheader("✅ Your Claims")
-        email = st.checkbox("We collect user emails")
-        tracking = st.checkbox("We use analytics/tracking")
-        retention = st.selectbox(
-            "Data retention period:",
-            ["Not specified", "3 months", "6 months", "1 year", "2+ years"]
-        )
-        sharing = st.checkbox("We share data with third parties")
+        analyze_button = st.button("🔍 Analyze Policy", type="primary", use_container_width=True)
     
-    # Analysis button
-    if st.button("🔍 Analyze Policy", type="primary"):
+    if analyze_button:
         if not policy_text.strip():
             st.error("Please enter a privacy policy to analyze!")
             return
         
+        # Automatically save the policy if a website name is provided and it's a new policy
+        if website_name and policy_text:
+            save_policy(website_name, policy_text)
+
         with st.spinner("Analyzing policy..."):
             # Generate summary
             with st.expander("📝 Policy Summary", expanded=True):
                 summary = summarizer.summarize_policy(policy_text)
                 st.markdown(summary)
             
-            # Extract facts
+            # Extract key information
             extracted_facts = extractor.extract_facts(policy_text)
             
-            # User claims
-            user_claims = {
-                "collects_emails": email,
-                "uses_tracking": tracking,
-                "retains_data_duration": retention,
-                "shares_data": sharing
-            }
+            # Display critical information
+            st.subheader("⚠️ Critical Information")
             
-            # Find mismatches with detailed analysis
-            mismatches = comparator.find_mismatches(extracted_facts, user_claims)
+            # Create three columns for different types of information
+            col1, col2, col3 = st.columns(3)
             
-            # Generate summary report
-            report = comparator.generate_summary_report(mismatches)
+            with col1:
+                st.markdown("#### 📊 Data Collection")
+                if extracted_facts.get('collects_emails'):
+                    st.warning("This website collects email addresses")
+                if extracted_facts.get('uses_tracking'):
+                    st.warning("This website uses tracking/analytics")
+                if extracted_facts.get('collects_location'):
+                    st.warning("This website collects location data")
             
-            # Display results in tabs
-            tab1, tab2, tab3 = st.tabs(["🔍 Analysis", "⚠️ Mismatches", "📋 Recommendations"])
+            with col2:
+                st.markdown("#### 🤝 Data Sharing")
+                if extracted_facts.get('shares_data'):
+                    st.error("This website shares data with third parties")
+                
+                st.markdown("#### ⏳ Data Retention")
+                retention = extracted_facts.get('retention_duration', 'unknown')
+                if retention != 'unknown':
+                    st.info(f"Data is retained for: {retention}")
             
-            with tab1:
-                st.markdown("<h2>🤖 What AI Found</h2>", unsafe_allow_html=True)
-                st.markdown("<ul style='font-size: 18px;'>", unsafe_allow_html=True)
+            with col3:
+                st.markdown("#### 👤 Your Rights")
+                if extracted_facts.get('right_to_delete'):
+                    st.success("You have the right to request data deletion")
+                if extracted_facts.get('right_to_access'):
+                    st.success("You have the right to access your data")
+                if extracted_facts.get('data_portability'):
+                    st.success("You have the right to export your data")
+                if extracted_facts.get('right_to_correction'):
+                    st.success("You have the right to correct your data")
+            
+            # Detailed Analysis
+            st.subheader("🔍 Detailed Analysis")
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.markdown("#### Data Collection & Usage")
                 for k, v in extracted_facts.items():
-                    color = "#8B0000" if v is True else "#4682B4" if v is False else "#FFA500" if v == "unknown" else "#222"
-                    st.markdown(
-                        f"<li><b>{k.replace('_', ' ').title()}:</b> <span style='color:{color};'>{v}</span></li>",
-                        unsafe_allow_html=True
-                    )
-                st.markdown("</ul>", unsafe_allow_html=True)
-
-                st.markdown("<h2>👤 Your Claims</h2>", unsafe_allow_html=True)
-                st.markdown("<ul style='font-size: 18px;'>", unsafe_allow_html=True)
-                for k, v in user_claims.items():
-                    color = "#8B0000" if v is True else "#4682B4" if v is False else "#FFA500" if v == "Not specified" else "#222"
-                    st.markdown(
-                        f"<li><b>{k.replace('_', ' ').title()}:</b> <span style='color:{color};'>{v}</span></li>",
-                        unsafe_allow_html=True
-                    )
-                st.markdown("</ul>", unsafe_allow_html=True)
+                    if k in ['collects_emails', 'uses_tracking', 'collects_location', 'shares_data']:
+                        if v is True:
+                            st.markdown(f"✅ {k.replace('_', ' ').title()}")
+                        elif v is False:
+                            st.markdown(f"❌ {k.replace('_', ' ').title()}")
+                        elif v != "unknown":
+                            st.markdown(f"ℹ️ {k.replace('_', ' ').title()}: {v}")
             
-            with tab2:
-                if mismatches:
-                    st.error(f"Found {len(mismatches)} potential mismatches!")
-                    
-                    # Group mismatches by severity
-                    severity_groups = {"high": [], "medium": [], "low": []}
-                    for key, mismatch in mismatches.items():
-                        severity = mismatch.get("severity", "medium")
-                        severity_groups[severity].append((key, mismatch))
-                    
-                    # Display mismatches by severity
-                    for severity in ["high", "medium", "low"]:
-                        if severity_groups[severity]:
-                            style = severity_styles[severity]
-                            st.markdown(
-                                f"<h3 style='color:{style['color']};'>{style['icon']} {severity.title()} Severity Issues</h3>",
-                                unsafe_allow_html=True
-                            )
-                            for key, mismatch in severity_groups[severity]:
-                                st.markdown(
-                                    f'''
-                                    <div style='background-color:{style['bg']};padding:16px;border-radius:8px;margin-bottom:16px;'>
-                                        <b style='color:{style['color']};'>{mismatch.get('field_description', key.replace('_', ' ').title())}:</b><br>
-                                        <ul>
-                                            <li><b>Policy says:</b> <code>{mismatch['policy_value']}</code></li>
-                                            <li><b>You claim:</b> <code>{mismatch['user_value']}</code></li>
-                                        </ul>
-                                        <i>{mismatch['explanation']}</i>
-                                    </div>
-                                    ''',
-                                    unsafe_allow_html=True
-                                )
-                else:
-                    st.success("✅ No mismatches found! Your claims align with your policy.")
-            
-            with tab3:
-                if mismatches:
-                    st.subheader("📋 Recommendations")
-                    recommendations = comparator._generate_recommendations(mismatches)
-                    for rec in recommendations:
-                        st.write(f"• {rec}")
-                else:
-                    st.success("✅ Your policy is well-aligned with your claims!")
+            with col2:
+                st.markdown("#### User Rights & Controls")
+                for k, v in extracted_facts.items():
+                    if k in ['right_to_delete', 'right_to_access', 'data_portability', 'right_to_correction', 'opt_out_rights']:
+                        if v is True:
+                            st.markdown(f"✅ {k.replace('_', ' ').title()}")
+                        elif v is False:
+                            st.markdown(f"❌ {k.replace('_', ' ').title()}")
+                        elif v != "unknown":
+                            st.markdown(f"ℹ️ {k.replace('_', ' ').title()}: {v}")
 
 if __name__ == "__main__":
     main()

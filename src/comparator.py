@@ -4,43 +4,48 @@ from typing import Dict, Any, List, Tuple
 
 class PolicyComparator:
     """
-    Enhanced comparator that finds mismatches between extracted policy facts
-    and user claims with detailed analysis and confidence scoring.
+    Comparator that analyzes privacy policies from a user's perspective,
+    highlighting important rights and potential concerns.
     """
     
     def __init__(self):
         self.mismatch_explanations = {
             "collects_emails": {
                 "description": "Email Collection",
-                "policy_true_user_false": "Your policy mentions collecting emails, but you claim you don't.",
-                "policy_false_user_true": "You claim to collect emails, but your policy doesn't mention this.",
+                "policy_true_user_false": "The policy mentions collecting emails, but you indicated it doesn't.",
+                "policy_false_user_true": "You indicated email collection, but the policy doesn't mention this.",
             },
             "uses_tracking": {
                 "description": "Analytics/Tracking Usage", 
-                "policy_true_user_false": "Your policy mentions using tracking/analytics, but you claim you don't.",
-                "policy_false_user_true": "You claim to use tracking/analytics, but your policy doesn't mention this.",
+                "policy_true_user_false": "The policy mentions using tracking/analytics, but you indicated it doesn't.",
+                "policy_false_user_true": "You indicated tracking usage, but the policy doesn't mention this.",
             },
             "shares_data": {
                 "description": "Third-Party Data Sharing",
-                "policy_true_user_false": "Your policy mentions sharing data with third parties, but you claim you don't.",
-                "policy_false_user_true": "You claim to share data with third parties, but your policy doesn't mention this.",
+                "policy_true_user_false": "The policy mentions sharing data with third parties, but you indicated it doesn't.",
+                "policy_false_user_true": "You indicated data sharing, but the policy doesn't mention this.",
             },
-            "retains_data_duration": {
-                "description": "Data Retention Period",
-                "different_periods": "There's a mismatch in data retention periods between your policy and claims.",
+            "right_to_delete": {
+                "description": "Right to Delete Data",
+                "policy_true_user_false": "The policy mentions data deletion rights, but you indicated it doesn't.",
+                "policy_false_user_true": "You indicated deletion rights, but the policy doesn't mention this.",
+            },
+            "right_to_access": {
+                "description": "Right to Access Data",
+                "policy_true_user_false": "The policy mentions data access rights, but you indicated it doesn't.",
+                "policy_false_user_true": "You indicated access rights, but the policy doesn't mention this.",
+            },
+            "data_portability": {
+                "description": "Data Portability",
+                "policy_true_user_false": "The policy mentions data portability, but you indicated it doesn't.",
+                "policy_false_user_true": "You indicated data portability, but the policy doesn't mention this.",
             }
         }
     
     def find_mismatches(self, extracted_facts: Dict[str, Any], user_claims: Dict[str, Any]) -> Dict[str, Dict]:
         """
         Compare extracted facts with user claims and identify mismatches.
-        
-        Args:
-            extracted_facts: Facts extracted from the privacy policy
-            user_claims: Claims made by the user about their practices
-            
-        Returns:
-            Dictionary of mismatches with detailed explanations
+        Focuses on user rights and data handling practices.
         """
         mismatches = {}
         
@@ -59,18 +64,13 @@ class PolicyComparator:
         return mismatches
     
     def _compare_field(self, field_name: str, policy_value: Any, user_value: Any) -> Dict[str, Any]:
-        """
-        Compare a specific field between policy and user claims.
+        """Compare a specific field between policy and user claims."""
         
-        Returns:
-            Dictionary with mismatch details if found, None if no mismatch
-        """
-        
-        # Handle data retention duration specially (more complex comparison)
+        # Handle data retention duration specially
         if field_name == "retains_data_duration":
             return self._compare_retention_duration(policy_value, user_value)
         
-        # Handle boolean fields (emails, tracking, sharing)
+        # Handle boolean fields
         elif isinstance(user_value, bool):
             return self._compare_boolean_field(field_name, policy_value, user_value)
         
@@ -89,7 +89,6 @@ class PolicyComparator:
     def _compare_boolean_field(self, field_name: str, policy_value: Any, user_value: bool) -> Dict[str, Any]:
         """Compare boolean fields like email collection, tracking usage, etc."""
         
-        # Convert policy value to boolean if needed
         policy_bool = self._convert_to_boolean(policy_value)
         
         if policy_bool != user_value:
@@ -205,115 +204,61 @@ class PolicyComparator:
         return -1  # Unable to parse
     
     def _calculate_severity(self, field_name: str, policy_value: bool, user_value: bool) -> str:
-        """Calculate severity of mismatch based on field type and values."""
+        """Calculate severity based on user impact."""
+        # High severity for user rights
+        if field_name in ['right_to_delete', 'right_to_access', 'data_portability']:
+            return 'high'
         
-        # High severity cases
-        if field_name == "shares_data":
-            # Claiming not to share when policy says you do is serious
-            if policy_value and not user_value:
-                return "high"
-            # Claiming to share when policy says you don't is also serious  
-            elif not policy_value and user_value:
-                return "high"
+        # Medium severity for data collection and sharing
+        if field_name in ['collects_emails', 'uses_tracking', 'shares_data']:
+            return 'medium'
         
-        elif field_name == "collects_emails":
-            # Not mentioning email collection when you do it is serious
-            if policy_value and not user_value:
-                return "high"
-            # Claiming to collect when policy doesn't mention it is medium
-            elif not policy_value and user_value:
-                return "medium"
-        
-        elif field_name == "uses_tracking":
-            # Not disclosing tracking usage is serious
-            if policy_value and not user_value:
-                return "high"
-            # Claiming tracking when policy doesn't mention it is medium
-            elif not policy_value and user_value:
-                return "medium"
-        
-        return "medium"  # Default severity
+        # Low severity for other fields
+        return 'low'
     
     def generate_summary_report(self, mismatches: Dict[str, Dict]) -> Dict[str, Any]:
-        """Generate a summary report of all mismatches."""
-        
-        if not mismatches:
-            return {
-                "total_mismatches": 0,
-                "severity_breakdown": {"high": 0, "medium": 0, "low": 0},
-                "overall_risk": "low",
-                "summary": "No mismatches detected. Your claims align well with your privacy policy.",
-                "recommendations": []
-            }
-        
-        # Count mismatches by severity
-        severity_count = {"high": 0, "medium": 0, "low": 0}
-        for mismatch in mismatches.values():
-            severity = mismatch.get("severity", "medium")
-            severity_count[severity] += 1
-        
-        # Determine overall risk
-        if severity_count["high"] > 0:
-            overall_risk = "high"
-        elif severity_count["medium"] > 2:
-            overall_risk = "high"
-        elif severity_count["medium"] > 0:
-            overall_risk = "medium"
-        else:
-            overall_risk = "low"
-        
-        # Generate recommendations
-        recommendations = self._generate_recommendations(mismatches)
-        
-        # Create summary message
-        total = len(mismatches)
-        summary = f"Found {total} mismatch{'es' if total > 1 else ''} between your claims and privacy policy."
-        
-        if severity_count["high"] > 0:
-            summary += f" {severity_count['high']} require immediate attention."
-        
-        return {
-            "total_mismatches": total,
-            "severity_breakdown": severity_count,
-            "overall_risk": overall_risk,
-            "summary": summary,
-            "recommendations": recommendations
+        """Generate a user-focused summary report."""
+        report = {
+            "critical_issues": [],
+            "warnings": [],
+            "recommendations": []
         }
+        
+        for key, mismatch in mismatches.items():
+            if mismatch['severity'] == 'high':
+                report['critical_issues'].append({
+                    "issue": mismatch['field_description'],
+                    "explanation": mismatch['explanation']
+                })
+            elif mismatch['severity'] == 'medium':
+                report['warnings'].append({
+                    "issue": mismatch['field_description'],
+                    "explanation": mismatch['explanation']
+                })
+        
+        report['recommendations'] = self._generate_recommendations(mismatches)
+        
+        return report
     
     def _generate_recommendations(self, mismatches: Dict[str, Dict]) -> List[str]:
-        """Generate specific recommendations based on mismatches found."""
-        
+        """Generate user-focused recommendations."""
         recommendations = []
         
-        for field_name, mismatch in mismatches.items():
-            severity = mismatch.get("severity", "medium")
+        for key, mismatch in mismatches.items():
+            if key == 'right_to_delete' and not mismatch['policy_boolean']:
+                recommendations.append("Consider requesting clarification about your right to delete your data")
             
-            if field_name == "collects_emails":
-                if severity == "high":
-                    recommendations.append("🔴 Update your privacy policy to clearly state email collection practices")
-                else:
-                    recommendations.append("🟡 Clarify email collection details in your privacy policy")
+            elif key == 'right_to_access' and not mismatch['policy_boolean']:
+                recommendations.append("Ask about how you can access your personal data")
             
-            elif field_name == "uses_tracking":
-                if severity == "high":
-                    recommendations.append("🔴 Add tracking/analytics disclosure to your privacy policy")
-                else:
-                    recommendations.append("🟡 Consider adding more details about your analytics usage")
+            elif key == 'data_portability' and not mismatch['policy_boolean']:
+                recommendations.append("Inquire about options to export your data if needed")
             
-            elif field_name == "shares_data":
-                if severity == "high":
-                    recommendations.append("🔴 Critical: Fix data sharing discrepancy immediately - this is a compliance risk")
-                else:
-                    recommendations.append("🟡 Clarify third-party data sharing practices")
+            elif key == 'shares_data' and mismatch['policy_boolean']:
+                recommendations.append("Review which third parties receive your data and for what purposes")
             
-            elif field_name == "retains_data_duration":
-                recommendations.append("🟡 Align data retention periods between your policy and actual practices")
-        
-        # Add general recommendations
-        if len(mismatches) > 2:
-            recommendations.append("📋 Consider a comprehensive policy review with a legal expert")
-        
-        recommendations.append("✅ Update your privacy policy to reflect your actual data practices")
+            elif key == 'uses_tracking' and mismatch['policy_boolean']:
+                recommendations.append("Consider using privacy tools to limit tracking")
         
         return recommendations
 

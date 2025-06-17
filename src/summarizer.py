@@ -1,5 +1,3 @@
-from transformers import pipeline
-import torch
 import os 
 from dotenv import load_dotenv
 import requests
@@ -7,109 +5,112 @@ import requests
 load_dotenv()
 
 class Policy_Summarizer:
+    """
+    Summarizes privacy policies using Hugging Face API.
+    Provides section-specific summaries focusing on user-relevant information.
+    """
+    
     def __init__(self):
-        self.summarizer = None
+        self.api_url = "https://api-inference.huggingface.co/models"
+        self.headers = {"Authorization": f"Bearer {os.getenv('ACCESS_TOKEN')}"}
+
+    def _query_api(self, model, payload):
+        """Generic method to query Hugging Face API"""
         try:
-            # Force CPU mode to avoid torch class issues
-            self.summarizer = pipeline(
-                "summarization",
-                model='facebook/bart-large-cnn',
-                device=-1,  # Force CPU
-                framework="pt"  # Explicitly use PyTorch
+            response = requests.post(
+                f"{self.api_url}/{model}",
+                headers=self.headers,
+                json=payload
             )
-            print("Successfully initialized summarizer on CPU")
-        except Exception as e:
-            print(f"Error initializing summarizer: {str(e)}")
-            # Try alternative initialization
-            try:
-                import torch
-                torch.set_num_threads(4)  # Limit CPU threads
-                self.summarizer = pipeline(
-                    "summarization",
-                    model='facebook/bart-large-cnn',
-                    device=-1,
-                    framework="pt"
-                )
-                print("Successfully initialized summarizer with alternative settings")
-            except Exception as e2:
-                print(f"Failed to initialize summarizer: {str(e2)}")
-                raise Exception("Could not initialize summarizer model")
-
-    def chunk_text(self, text, max_tokens=400):
-        words = text.split()
-        chunks = []
-        for i in range(0, len(words), max_tokens):
-            chunk = " ".join(words[i:i+max_tokens])
-            chunks.append(chunk)
-        return chunks
-
-    def summarize_with_api(self, policy_text):
-        API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-        headers = {"Authorization": f"Bearer {os.getenv('ACCESS_TOKEN')}"}
-
-        def query(payload):
-            response = requests.post(API_URL, headers=headers, json=payload)
+            response.raise_for_status()
             return response.json()
+        except Exception as e:
+            print(f"API Error: {str(e)}")
+            return None
+
+    def summarize_with_api(self, text, max_length=150, min_length=50):
+        """Summarize text using Hugging Face API"""
+        payload = {
+            "inputs": text[:1000],
+            "parameters": {
+                "max_length": max_length,
+                "min_length": min_length,
+                "do_sample": False
+            }
+        }
         
-        output = query({
-            "inputs": policy_text[:1000],  # Limit input length
-            "parameters": {"max_length": 150, "min_length": 50}
-        })
+        result = self._query_api("facebook/bart-large-cnn", payload)
         
-        if isinstance(output, list) and len(output) > 0:
-            return output[0].get('summary_text', 'Unable to generate summary')
+        if isinstance(result, list) and len(result) > 0:
+            return result[0].get('summary_text', 'Unable to generate summary')
         return "Error: Unable to generate summary"
 
     def summarize_policy(self, policy_text):
-        print("Starting summarization process (Hugging Face API)...")
+        """Generate a comprehensive summary of the privacy policy focusing on user-relevant information."""
+        print("Starting summarization process...")
         print(f"Input text length: {len(policy_text)} characters")
+        
         try:
-            with open("prompts/summarization.txt", "r") as f:
-                prompt_template = f.read().strip()
-
-            input_text = f"{prompt_template}\n\n{policy_text}"
-            chunks = self.chunk_text(input_text, max_tokens=400)
-
+            # Generate section-specific summaries
+            sections = {
+                "Data Collection": self._extract_section(policy_text, ["collect", "collection", "data we collect", "information we collect"]),
+                "Data Usage": self._extract_section(policy_text, ["use", "usage", "how we use", "purpose"]),
+                "Data Sharing": self._extract_section(policy_text, ["share", "sharing", "third party", "third-party"]),
+                "User Rights": self._extract_section(policy_text, ["rights", "access", "delete", "portability", "control"]),
+                "Data Security": self._extract_section(policy_text, ["security", "protect", "safeguard", "encrypt"])
+            }
+            
             summaries = []
-            for i, chunk in enumerate(chunks):
-                print(f"Chunk {i} length: {len(chunk.split())} words")
-                try:
-                    summary_text = self.summarize_with_api(chunk)
-                    if summary_text and not summary_text.startswith("Error"):
-                        summaries.append(summary_text)
-                    else:
-                        print(f"Warning: No summary generated for chunk {i}. Skipping.")
-                except Exception as e:
-                    print(f"Error summarizing chunk {i} via API: {e}")
-                    continue
-
+            for section_name, section_text in sections.items():
+                if section_text:
+                    try:
+                        summary = self.summarize_with_api(
+                            section_text,
+                            max_length=100,
+                            min_length=30
+                        )
+                        if summary and not summary.startswith("Error"):
+                            summaries.append(f"### {section_name}\n{summary}")
+                    except Exception as e:
+                        print(f"Error summarizing {section_name}: {e}")
+                        continue
+            
             if not summaries:
                 return "Error: No summary could be generated. Try with a shorter or different text."
-
-            combined_summary = " ".join(summaries)
-            if len(summaries) > 1:
-                try:
-                    final_summary = self.summarize_with_api(combined_summary)
-                    if final_summary and not final_summary.startswith("Error"):
-                        final_summary_text = final_summary
-                    else:
-                        final_summary_text = combined_summary
-                except Exception as e:
-                    print(f"Error in final summarization via API: {e}")
-                    final_summary_text = combined_summary
-            else:
-                final_summary_text = combined_summary
-
-            return self._format_as_bullets(final_summary_text)
+            
+            # Generate overall summary
+            try:
+                overall_summary = self.summarize_with_api(
+                    policy_text,
+                    max_length=150,
+                    min_length=50
+                )
+                if overall_summary and not overall_summary.startswith("Error"):
+                    summaries.insert(0, f"### Overall Summary\n{overall_summary}")
+            except Exception as e:
+                print(f"Error generating overall summary: {e}")
+            
+            return "\n\n".join(summaries)
 
         except Exception as e:
             return f"Error generating summary: {str(e)}"
     
+    def _extract_section(self, text, keywords):
+        """Extract relevant section of text based on keywords."""
+        sentences = text.split('. ')
+        section_sentences = []
+        
+        for sentence in sentences:
+            if any(keyword.lower() in sentence.lower() for keyword in keywords):
+                section_sentences.append(sentence)
+        
+        return '. '.join(section_sentences) if section_sentences else ""
+    
     def _format_as_bullets(self, text):
+        """Format text as bullet points."""
         sentences = [s.strip() for s in text.split('. ') if s.strip()]
         bullets = []
-        for sentence in sentences[:5]:
-            # Ensure each bullet ends with a period
+        for sentence in sentences:
             if not sentence.endswith('.'):
                 sentence += '.'
             bullets.append(f'- {sentence}')

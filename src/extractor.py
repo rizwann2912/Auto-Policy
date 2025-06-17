@@ -1,132 +1,80 @@
 import re
-import requests # Added for API calls
-import os # Added for environment variables
-from dotenv import load_dotenv # Assuming you use dotenv for ACCESS_TOKEN
+import requests
+import os
+from dotenv import load_dotenv
 
-load_dotenv() # Load environment variables
-
-from transformers import pipeline
+load_dotenv()
 
 class PolicyExtractor:
     """
-    Extracts key information from privacy policies using both keyword matching and NLP.
+    Extracts key information from privacy policies focusing on user-relevant details.
+    Uses Hugging Face API for NLP tasks.
     """
     
     def __init__(self):
         print("\n=== Initializing Policy Extractor ===")
-        self.classifier = None
-        # self.qa_pipeline will not be initialized locally as we use API
+        self.api_url = "https://api-inference.huggingface.co/models"
+        self.headers = {"Authorization": f"Bearer {os.getenv('ACCESS_TOKEN')}"}
 
+    def _query_api(self, model, payload):
+        """Generic method to query Hugging Face API"""
         try:
-            print("Attempting to load zero-shot classification model...")
-            self.classifier = pipeline(
-                "zero-shot-classification",
-                model='facebook/bart-large-mnli',
-                device=-1  # Force CPU to avoid torch issues
+            response = requests.post(
+                f"{self.api_url}/{model}",
+                headers=self.headers,
+                json=payload
             )
-            print("✅ Successfully initialized zero-shot classifier")
+            response.raise_for_status()
+            return response.json()
         except Exception as e:
-            print(f"❌ Error initializing zero-shot classifier: {str(e)}")
-
-        # No local QA pipeline initialization here as we're using the API
-
-    def _query_qa_api(self, question: str, context: str):
-        API_URL = "https://api-inference.huggingface.co/models/deepset/roberta-base-squad2"
-        headers = {"Authorization": f"Bearer {os.getenv('ACCESS_TOKEN')}"}
-
-        payload = {
-            "inputs": {
-                "question": question,
-                "context": context
-            }
-        }
-        response = requests.post(API_URL, headers=headers, json=payload)
-        response.raise_for_status() # Raise an exception for HTTP errors
-        return response.json()
+            print(f"API Error: {str(e)}")
+            return None
 
     def extract_facts(self, text):
         """
-        Main method to extract facts from privacy policy text.
-        Combines results from both keyword and NLP extraction.
-        
-        Args:
-            text (str): The privacy policy text to analyze
-            
-        Returns:
-            dict: Dictionary containing extracted facts
+        Main method to extract user-relevant facts from privacy policy text.
         """
         print("\n=== Starting Fact Extraction ===")
         print(f"Input text length: {len(text)} characters")
         
-        # Always do keyword extraction as it's reliable
+        # Basic keyword extraction
         print("\n--- Starting Keyword Extraction ---")
         basic_facts = self.keyword_extraction(text)
         print("✅ Completed keyword extraction")
-        print(f"Keyword extraction results: {basic_facts}")
 
-        # Try NLP extraction if available
-        if self.classifier is not None:
-            print("\n--- Starting NLP Extraction (Zero-shot) ---")
-            try:
-                nlp_facts = self.nlp_extraction(text)
-                basic_facts.update(nlp_facts)
-                print("✅ Completed zero-shot NLP extraction")
-            except Exception as e:
-                print(f'❌ Zero-shot NLP extraction failed: {str(e)}')
-        else:
-            print('⚠️ Zero-shot NLP extraction not available')
-
-        # Try Zero-Shot Retention Extraction
-        if self.classifier is not None:
-            print("\n--- Starting NLP Retention Extraction (Zero-shot) ---")
-            try:
-                retention_zero_shot = self.nlp_retention_extraction(text)
-                basic_facts['retention_nlp_zeroshot'] = retention_zero_shot
-                print(f"Zero-shot Retention: {retention_zero_shot}")
-                print("✅ Completed zero-shot retention extraction")
-            except Exception as e:
-                print(f'❌ Zero-shot Retention extraction failed: {str(e)}')
-                basic_facts['retention_nlp_zeroshot'] = "Error"
-        else:
-            print('⚠️ Zero-shot Retention extraction not available')
-
-        # Try QA Retention Extraction using API
-        print("\n--- Starting QA Retention Extraction (API) ---")
+        # NLP extraction using API
+        print("\n--- Starting NLP Extraction (API) ---")
         try:
-            retention_qa = self.qa_retention_extraction(text)
-            basic_facts['retention_nlp_qa'] = retention_qa
-            print(f"QA Retention: {retention_qa}")
-            print("✅ Completed QA retention extraction (API)")
+            nlp_facts = self.nlp_extraction(text)
+            basic_facts.update(nlp_facts)
+            print("✅ Completed NLP extraction")
         except Exception as e:
-            print(f'❌ QA Retention extraction failed (API): {str(e)}')
-            basic_facts['retention_nlp_qa'] = "Error"
-        
-        print("\n=== Final Combined Results ===")
-        print(f"Combined facts: {basic_facts}")
+            print(f'❌ NLP extraction failed: {str(e)}')
+
+        # Extract user rights
+        print("\n--- Starting User Rights Extraction ---")
+        try:
+            rights_facts = self.extract_user_rights(text)
+            basic_facts.update(rights_facts)
+            print("✅ Completed user rights extraction")
+        except Exception as e:
+            print(f'❌ User rights extraction failed: {str(e)}')
+
         return basic_facts
     
     def keyword_extraction(self, text):
-        """
-        Extracts facts using keyword matching and regex patterns.
-        
-        Args:
-            text (str): The privacy policy text
-            
-        Returns:
-            dict: Dictionary of extracted facts
-        """
+        """Extracts facts using keyword matching and regex patterns."""
         text_lower = text.lower()
         facts = {}
 
-        # Email collection detection
+        # Data Collection
         email_keywords = ['email', 'e-mail', 'email address', 'contact information']
         facts['collects_emails'] = any(keyword in text_lower for keyword in email_keywords)
 
-        # Tracking/analytics detection
         tracking_keywords = ['analytics', 'tracking', 'cookies', 'google analytics', 'facebook pixel']
         facts['uses_tracking'] = any(keyword in text_lower for keyword in tracking_keywords)
 
-        # Data retention detection (keeping original regex for comparison)
+        # Data Retention
         retention_patterns = [
             r'(\d+)\s*(year|month|day)s?',
             r'(indefinitely|permanently)',
@@ -141,7 +89,7 @@ class PolicyExtractor:
                 break
         facts['retention_duration'] = retention_duration
 
-        # Third-party sharing detection
+        # Data Sharing
         sharing_keywords = ['third party', 'third-party', 'share', 'sharing', 'partners']
         no_sharing_keywords = ['do not share', 'not share', 'no sharing']
 
@@ -149,58 +97,87 @@ class PolicyExtractor:
         if any(keyword in text_lower for keyword in no_sharing_keywords):
             facts['shares_data'] = False
 
+        # Age Restrictions
+        age_patterns = [
+            r'(\d+)\s*years?\s*old',
+            r'age\s*of\s*(\d+)',
+            r'minimum\s*age\s*(\d+)'
+        ]
+        for pattern in age_patterns:
+            match = re.search(pattern, text_lower)
+            if match:
+                facts['minimum_age'] = match.group(1)
+                break
+
+        # Location Data
+        location_keywords = ['location', 'gps', 'geolocation', 'ip address', 'country']
+        facts['collects_location'] = any(keyword in text_lower for keyword in location_keywords)
+
         return facts
     
-    def nlp_extraction(self, text):
-        """
-        Uses zero-shot classification to extract facts from the policy.
-        
-        Args:
-            text (str): The privacy policy text
-            
-        Returns:
-            dict: Dictionary of extracted facts using NLP
-        """
-        if self.classifier is None:
-            print("❌ Classifier not initialized, skipping NLP extraction")
-            return {}
+    def extract_user_rights(self, text):
+        """Extracts information about user rights from the policy."""
+        text_lower = text.lower()
+        rights = {}
 
-        print("\n--- NLP Classification Process ---")
-        # Define the categories we want to classify
+        # Right to Delete
+        delete_keywords = ['right to delete', 'right to erasure', 'delete your data', 'remove your data']
+        rights['right_to_delete'] = any(keyword in text_lower for keyword in delete_keywords)
+
+        # Right to Access
+        access_keywords = ['right to access', 'access your data', 'view your data', 'download your data']
+        rights['right_to_access'] = any(keyword in text_lower for keyword in access_keywords)
+
+        # Data Portability
+        portability_keywords = ['data portability', 'export your data', 'transfer your data']
+        rights['data_portability'] = any(keyword in text_lower for keyword in portability_keywords)
+
+        # Opt-out Rights
+        optout_keywords = ['opt out', 'opt-out', 'unsubscribe', 'withdraw consent']
+        rights['opt_out_rights'] = any(keyword in text_lower for keyword in optout_keywords)
+
+        # Data Correction
+        correction_keywords = ['correct your data', 'update your data', 'modify your data']
+        rights['right_to_correction'] = any(keyword in text_lower for keyword in correction_keywords)
+
+        return rights
+
+    def nlp_extraction(self, text):
+        """Uses Hugging Face API for zero-shot classification to extract facts."""
         categories = {
             'collects_emails': ["collects email addresses", "does not collect emails"],
             'uses_tracking': ["uses tracking tools", "no tracking or analytics"],
-            'shares_data': ["shares data with third parties", "does not share user data"]
+            'shares_data': ["shares data with third parties", "does not share user data"],
+            'right_to_delete': ["users can delete their data", "users cannot delete their data"],
+            'right_to_access': ["users can access their data", "users cannot access their data"],
+            'data_portability': ["users can export their data", "users cannot export their data"]
         }
 
         results = {}
         
-        # Classify each category
         for key, labels in categories.items():
             try:
-                print(f"\nClassifying: {key}")
-                print(f"Labels: {labels}")
+                payload = {
+                    "inputs": text,
+                    "parameters": {
+                        "candidate_labels": labels,
+                        "multi_label": False
+                    }
+                }
                 
-                result = self.classifier(text, labels)
-                print(f"Raw classification result: {result}")
+                result = self._query_api("facebook/bart-large-mnli", payload)
                 
-                # Get the most likely label
-                most_likely = result['labels'][0]
-                confidence = result['scores'][0]
-                
-                print(f"Most likely label: {most_likely}")
-                print(f"Confidence: {confidence:.2f}")
-                
-                # Convert to boolean based on the positive label
-                results[key] = most_likely == labels[0]
-                print(f"Final classification for {key}: {results[key]}")
-                
+                if result and 'labels' in result and 'scores' in result:
+                    most_likely = result['labels'][0]
+                    results[key] = most_likely == labels[0]
+                else:
+                    print(f"❌ Invalid API response for {key}")
+                    results[key] = None
+                    
             except Exception as e:
                 print(f"❌ Error classifying {key}: {str(e)}")
                 results[key] = None
 
-        print("\n--- NLP Extraction Summary ---")
-        print(f"Final NLP results: {results}")
         return results
 
     def nlp_retention_extraction(self, text):
@@ -239,7 +216,12 @@ class PolicyExtractor:
         question = "How long is user data retained?"
         try:
             # Use the new API querying method
-            result = self._query_qa_api(question=question, context=text)
+            result = self._query_api("deepset/roberta-base-squad2", {
+                "inputs": {
+                    "question": question,
+                    "context": text
+                }
+            })
             print(f"QA Retention Raw Result: {result}")
             
             # The API result is usually a dictionary with 'answer' and 'score'
