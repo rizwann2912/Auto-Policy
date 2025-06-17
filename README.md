@@ -2,6 +2,8 @@
 
 ## Your Personal Privacy Policy Assistant
 
+**🌐 Live Application:** [policy-analyzer.streamlit.app/](https://policy-analyzer.streamlit.app/)
+
 This application helps everyday users understand lengthy and complex privacy policies and terms and conditions from various websites. Instead of sifting through pages of legal jargon, users can paste a policy, and the app will provide key insights, highlight important clauses, and detail their rights.
 
 ---
