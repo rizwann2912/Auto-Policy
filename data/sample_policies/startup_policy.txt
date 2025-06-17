@@ -1,0 +1,5 @@
+Our startup collects user email addresses for login. We also use Google Analytics to track page views and user behavior. We retain user data for up to 1 year.
+
+We do not collect any financial or health-related data. Users may contact us to request data deletion.
+
+We do not share user data with third parties unless legally required.
