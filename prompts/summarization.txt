@@ -1,0 +1,6 @@
+Analyze this privacy policy and extract the key information. Answer these questions:
+1. What data is collected
+2. How long data is stored
+3. Whether data is shared with third parties
+4. User rights and controls
+5. Contact information for privacy concerns
