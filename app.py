@@ -53,7 +53,7 @@ def main():
     
     # Load models
     with st.spinner("Loading AI models..."):
-        summarizer, extractor, comparator = load_models()
+        summarizer, extractor= load_models()
 
     # Sidebar for sample policies
     st.sidebar.header("📚 Sample Policies")
