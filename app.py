@@ -7,7 +7,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
 from summarizer import Policy_Summarizer
 from extractor import PolicyExtractor
-from comparator import PolicyComparator
 from database import init_db, save_policy_to_db, load_policies_from_db
 
 # Page config
@@ -18,21 +17,25 @@ st.set_page_config(
 )
 
 policy_dir = "data/companies"
-available_policies = {
-    "Facebook": "facebook.txt",
-    "AWS": "aws.txt",
-    "OpenAI": "openai.txt",
-    "Microsoft": "microsoft.txt",
-    "InternShala": 'internshala.txt'
-}
+
+# Dynamically generate available_policies from files in data/companies
+def get_available_policies():
+    policies = {}
+    for fname in os.listdir(policy_dir):
+        if fname.endswith('.txt'):
+            key = os.path.splitext(fname)[0].capitalize()
+            policies[key] = fname
+    return policies
+
+available_policies = get_available_policies()
 
 # Initialize models (cache them for performance)
 @st.cache_resource
 def load_models():
     summarizer = Policy_Summarizer()
     extractor = PolicyExtractor()
-    comparator = PolicyComparator()
-    return summarizer, extractor, comparator
+    
+    return summarizer, extractor
 
 # Initialize database when the app starts
 init_db()
