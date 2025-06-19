@@ -1,0 +1,15 @@
+name: Keep Streamlit App Awake
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'  # Every 12 hours
+  workflow_dispatch:        # Allow manual trigger
+
+jobs:
+  ping-app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Streamlit Cloud App
+        run: |
+          curl -f https://policy-analyzer.streamlit.app || exit 1

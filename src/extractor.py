@@ -214,7 +214,7 @@ class PolicyExtractor:
             })
             print(f"QA Retention Raw Result: {result}")
             
-            if isinstance(result, dict) and 'answer' in result and result['score'] > 0.01:
+            if isinstance(result, dict) and 'answer' in result and result['score'] > 0.02:
                 return result['answer']
             else:
                 return "Not found (QA API)"
