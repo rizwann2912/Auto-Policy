@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Ping Streamlit App
         run: |
-          curl -A "Mozilla/5.0" -f https://policy-analyzer.streamlit.app || exit 1
+          curl -L -A "Mozilla/5.0" -f https://policy-analyzer.streamlit.app || exit 1
