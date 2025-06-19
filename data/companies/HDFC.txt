@@ -1,0 +1,212 @@
+This Privacy Policy outlines HDFC Bank Limited’s approach to processing of Data.
+
+HDFC Bank is committed to treating data privacy seriously. It is important that you know exactly what we do with the personal data you and others provide to or for us, why it is processed and what it means to you. Please read this Privacy Policy carefully.
+
+Definitions
+
+The following capitalised terms shall have the meanings assigned to them as under:
+
+“Bank” or “HDFC Bank” shall have the meaning as ascribed to the term in the first paragraph of this Privacy Policy.
+
+“Covered Person(s)” or “You” shall have the meaning as ascribed to the term in the ‘Applicability’ section of this Privacy Policy.
+
+“Data” shall have the meaning as ascribed to the term in the ‘Data’ section of this Privacy Policy.
+
+“Derivation” shall have the meaning as ascribed to the term in the ‘Data’ section of this Privacy Policy.
+
+“Derivative Data” shall have the meaning as ascribed to the term in the ‘Data’ section of this Privacy Policy.
+
+“Processing Entity” shall have the meaning as ascribed to the term in the ‘Who we share your Data with?’ section of this Privacy Policy.
+
+“Product(s)” shall have the meaning as ascribed to the term in the ‘Applicability’ section of this Privacy Policy.
+
+“Specified Purposes” shall collectively mean, credit assessment, risk assessment, risk analysis, obtaining credit information reports, scores, scrubs, fraud checks, fraud detections, fraud prevention, detecting and preventing crime including crime/ terror funding, detecting malpractices or discrepant documents or information, prevention of misuse, assessment of credit worthiness, financial standing, due diligence, background check, physical and other inspections, verifications, obtaining any reports for any of the above, KYC/ AML checks, customer service, monitoring, collections, default detection, default prevention, default investigation, recovery, any legal proceedings, actions, enquiries, investigations, pursuing any remedies, enforcing rights, reporting including credit reporting, KYC reporting, default reporting, filing, perfections etc., whether any of these are undertaken internally or through any Processing Entity or through a combination of multiple options.
+
+Applicability
+
+This Privacy Policy applies to personal data of any natural person (“Covered Person(s)” or “You” or any cognate variations thereof) which is processed by or for HDFC Bank, whether in physical or electronic mode. This Privacy Policy applies in relation to all products, services and/or businesses [of our own/ of subsidiaries/ affiliates, or where we/ subsidiaries/ affiliates distribute, refer or act as agent or act as a sponsor bank or a Payment Service Provider (PSP) bank etc. in relation to any products or services, including any credit facilities, credit cards, debit cards, forex instruments, cheques, any other payment instruments, remittance services (both inward and outward), currency exchange services, prepaid payment instruments, loans, any other credit transactions or products or services, insurance products, investments, wealth management, estate management, credit assessment, financial products, advisory services, investment advisory services, capital markets, demat accounts, trading accounts, savings or current accounts, any other accounts, deposits, transfers, referrals, cash management, payment services and products, payment gateway, wallets, merchant acquiring, PSP services, Third Party Application Provider (TPAP) services, Unified Payments Interface (UPI), Point of Sale (POS) services, collections, distributions, agencies, trusts etc. (collectively “Product(s)” including where the initiation of any transaction is not directly with us but is with a relevant Processing Entity like in case of a UPI transfer through a TPAP where your account is not with us but we are a PSP bank)], intermediaries or consultants, Products as applicable to the Covered Persons, whether we are in direct relationship or indirect relationship through any other intermediary/ entity, vis-à-vis you, as also if you are an authorised signatory or authorised person or representative of a non-individual applicant/ customer/ user of any services, whether direct or indirect. Your Products’ terms and conditions will cover specific matters in addition to this Privacy Policy and this Privacy Policy does not limit any of those specific matters or any other consent that you may have given or may give to or for the benefit of HDFC Bank. Therefore, please also read such specific terms and conditions in relation to the Products and such other consents, wherever applicable.
+
+Who we are
+
+Throughout this document, “we”, “us”, “our” and “ours” or any cognate variations thereof refer to HDFC Bank.
+
+“HDFC Bank” or “Bank” means:
+
+HDFC Bank Limited having its registered office at Senapati Bapat Marg, Lower Parel (West), Mumbai 400013, Mumbai, India.
+
+Website: https://www.hdfcbank.com/
+
+Our contact details are given at the end of this Privacy Policy.
+
+Data
+
+The personal data collected or received falls into various categories as under: 
+
+
+Identity & contact information
+Name, address, signatures, biometric data, date of birth, copies of identity cards (ID), contact details including email id and phone number, address, previous names, maiden names, marital status, relatives information, nomination, medical condition, domicile, origin, citizenship, nationality, residence, any legal or other identifiers like Permanent Account Number (PAN)/ Taxpayer Identification Number (TIN)/ Aadhaar/ National ID/ Social Security Number/ or its equivalent, Photograph and Gender.
+Data that identifies (whether directly or indirectly) a particular individual, such as information you provide on any forms, surveys, online applications or similar online fields.
+Demographic information that you provide and aggregated or de-identified Data.
+
+Financial details/circumstances
+Bank account details, investments history, credit/debit card details, prepaid payment instrument details, any other instrument/ modality/ function details, UPI handles, income details, history in relation to these.
+Employment / occupational information.
+Residential status under banking, general and tax laws.
+Spending/saving/investing/payments/receipts/borrowing history.
+Risk profile, financial objectives, financial knowledge and experience, preferences and any other information to assess the suitability of the Products to you.
+Information collected when you make or receive payments.
+Other information such as information relating to occupation and financial situation such as employer’s name and address, if self-employed, type of account, and nature and volume of anticipated business dealings, with the conventional bank licensee, income proof, bank statements, income tax returns, salary slip, contract of employment, passbook, expenditure, assets and liabilities, source of wealth and signature.
+Data that is collected when you make financial and non-financial transactions. Data may include information associated with the transaction such as amount sent or requested, amount paid for Products or merchant information, including information about any funding instruments used to complete the transaction.
+
+Information you provide about others or others provide about you
+If you give information or data about someone else (for example, information or data about a spouse or financial associate provided during the course of a joint application with that person), or someone gives information about you, may be added to any Data that is already held about you and can be used in the ways described in this Privacy Policy.
+Your Data from third party providers: In order to enhance our ability to provide relevant marketing, offers, and services to you, Data about you is obtained from other sources with your consent, such as email service providers, public databases, joint marketing partners, social media platforms, as well as from other third parties as appropriate.
+Information including Data from credit information companies/ credit reference agencies, risk management and fraud prevention agencies, national and government databases.
+Information including Data from other parties and entities where we are a part of a transaction in one or more roles even though we may not be directly interfacing you, for example during the course of remittances being initiated by you through your bank to a beneficiary whose bank account is with us.
+Data of authorised signatories or authorised persons or representatives of non-individual applicants/ customers/ users of any services, whether direct or indirect.
+
+Information from online activities.
+Information about your internet activity is collected using technology known as cookies, which can often be controlled through internet browsers. For detailed information on the cookies used and the purposes for which they are used, see our Cookie Policy, which is available on our website.
+Your digital and electronic devices where various checks are performed are designed to ascertain and verify your residency to ensure we meet our regulatory obligations. These checks include identifying and collecting your location (with your specific permission) and the IP address your device connects from and the collection of information about your use of the website or mobile app (including device type, operating system, screen resolution, and the way you interact with us). 
+Information about your Internet browser, IP address, information collected through tracking technologies.
+Unique device identifier such as International Mobile Equipment Identity (IMEI) number, technical usage data, contact lists (in some cases where specific permission is obtained), technical data about your computer and mobile device including details regarding applications and usage details.
+Information such as your fingerprint, etc. that you choose to provide to us. We will not collect your biometric information without your explicit consent.
+Generation and storing password or PIN in encrypted form.
+
+Other personal information
+Information in relation to data access, correction, restriction, deletion, porting requests and complaints.
+CCTV images and Data at our Bank branches, offices and ATMs (but only for security reasons and to help prevent fraud or crime).
+Conversations during meetings/calls/correspondences/discussions with bank staff.
+Social relationships detail such as your father’s name, spouse’s name and mother’s name;
+Behavioural details as to how to utilise our Products, offers etc., your browsing actions, patterns and online activity;
+Records of correspondence and other communications with you, including email, telephone conversations, live chat, instant messages and social media communications containing information concerning your grievances, complaints and dispute.
+Any other information, Data or records which you may consent to be collected or used.
+Out of the aforesaid data points, the following are ‘sensitive personal data or information’:
+
+password
+financial information such as Bank Account or Credit Card or Debit Card or other payment instrument details;
+physical, physiological and mental health condition;
+sexual orientation;
+medical records and history;
+biometric information; and
+any detail relating to the above clauses as provided by you.
+Provided that, any information that is freely available or accessible in public domain or furnished under the Right to Information Act, 2005 or any other law for the time being in force shall not be regarded as ‘sensitive personal data or information’.
+
+Any of the aforesaid data (whether personal data or sensitive personal data or information), information, know your customer (KYC) related data, any derivative thereof ("Derivative Data”) like any credit scores or behavioural projections, profiling, analytical results, reports (prepared by us or others) including through any algorithms, analytics, software, automations, profiling etc., and whether such derivative is from the information collected from you or in combination with any other information sourced from any other person, database or source whether by us or others, shall collectively be referred to as “Data” and any part of the process relating to arriving at the Derivative Data as above, whether through internal or external sourcing, shall be referred to as “Derivation”.
+
+When and how your Data is collected?
+
+Your Data may be collected or processed through any of the following:
+
+When you submit the Data to us including when you ask for certain Products.
+When you use the Products.
+During the course of transactions.
+When you apply for the Products, make enquiries or engage with us or with any other person where we are involved for any other person in the transaction concerning you.
+Data collected during credit assessment, risk assessment, fraud checks, fraud detections, processes undertaken for fraud prevention, detecting malpractices or discrepant documents or information, prevention of misuse, assessment of credit worthiness, evaluation of financial standing, due diligence, background check, physical and other inspections, verifications, KYC/ Anti Money Laundering (AML) checks, monitoring, collections, recovery, customer service etc.
+When you use our website and online services provided by us (including mobile applications) and visit our branches or offices.
+When you email or call or respond to our emails/phone calls or during meetings with our bank staff or its service providers or representatives.
+When you or others give the Data verbally or in writing. This Data may be on application forms, in records of your transactions or if you make a complaint.
+From information publicly available about you. When you make Data about yourself publicly available on your social media accounts or where you choose to make the Data available through your social media account, and where it is appropriate to be used.
+During or as a result of Derivation, from any person possessing the same or sourcing any Data therefor.
+From any persons involved in any payment system or infrastructure or architecture of which HDFC Bank is a part including National Automated Clearing House (NACH), UPI, Electronic Clearing Service (ECS), ATM portability, Immediate Payment Service (IMPS), Real Time Gross Settlement (RTGS), National Electronic Fund Transfer (NEFT) etc., or from any persons (including TPAP) to whom the Bank acts as a service provider, distributor, agent, referral entity, promoter, marketer, sponsor bank, PSP bank, trustee, etc., where you are part of any payment or withdrawal or transaction or purchase/ sale/ distribution of any Product, whether as payee, payer, beneficiary, intermediary, distributor etc. and whether your interface/ interaction is directly with us or not or with any such other person or any platform/app.
+Data collected through cookies.
+
+By accepting this Privacy Policy or by applying for or using any Product (including where the initiation of any transaction is not directly with us but is with a relevant Processing Entity like in case of a UPI transfer through a TPAP where your account is not with us but we are a PSP bank), you agree that any person who submits any Data or part thereof to us or from whom we source the same (including Derivation), shall be deemed to have been authorised by you to submit such Data to us and you hereby further authorise the processing of any such Data by us or for us, for any of the purposes mentioned in this Privacy Policy. 
+
+How we process your Data?
+
+Whether we’re using it to confirm your identity, to help in the processing of an application for any Products or to improve your experiences with us, your Data is always handled with care and the principles outlined in this Privacy Policy are always applied. 
+
+Purposes of processing Data
+
+The processing of the Data may be done by us or any of the Processing Entities for any of the following purposes, and you agree and consent to the same:
+
+To provide you with Products.
+To manage relationships with you.
+For enabling your use of Products.
+For processing or executing transactions.
+For enabling any applications/ requests for any Products, for processing any such applications/ requests, for performing any contract pursuant thereto and for undertaking any Specified Purposes in relation to any of the above.
+To perform activities such as data analysis, audits, usage trends to determine the effectiveness of our campaigns and as input into improving Products.
+For credit scoring, credit analysis, risk analysis, obtaining any reports, credit scores, credit information, scrubs, for assessing and undertaking/ evaluating financial standing, fraud check, fraud probability, reference checks, due diligence, inspections, etc. including from or through any credit information companies, bureaus, fintech entities or service providers.
+For enabling use of our website, platforms, and online services (including mobile or web applications) and visiting our branches or offices.
+To contact you or to establish contact with you or your whereabouts.
+To allow you to utilize features on platforms/ apps by granting us access to Data from your device.
+For security, business continuity and risk management.
+For system or product development and planning, audit and administrative purposes.
+To personalize your platform/ app experience.
+To improve customer/ user experience.
+To inform you about important information regarding our Products, changes to terms, conditions, and policies and/or other administrative information; Where processing is necessary for the performance of a contract to which you are a party or in order to take steps prior to entering into a contract. To take actions that are necessary in order to provide you with the Products (performance of a contract), for example, to make and receive payments.
+Where processing is necessary because of a legal or regulatory obligation that applies to us.
+Where processing is necessary for the purposes of the legitimate interests pursued by us or by a third party. Processing may be required to meet our legitimate interests, for example, to understand the customer behaviour, customer expectations, to build analytical models, or to understand how customers use or respond to the Products, or to develop new Products, as well as improve the Products we currently provide. This may also include sharing of your Data either as part of a sample or specifically or generally with any potential or actual service provider or consultant or vendor or third party or Processing Entity, for the purposes of testing of proof of concept, where the utility, workability, efficacy, authenticity of any solution or service proposed or being rendered by any such person may be tested, and any such person may process such Data along with any other data it may have or source externally, for the purpose of running or pilot running or testing of the proposed solution or service and to submit the results to us along with the Data and any other data which such person may have or source. You agree that such sharing of Data and processing thereof and testing of proof of concept is in our legitimate interest to improve our efficiency, customer service, product delivery, to prevent frauds, etc. and ultimately is a necessary part of developing the ecosystem where customers and potential customers including you, benefit. 
+Where processing is necessary to protect your interests where we need to process your Data and you are not capable of providing consent (emergency situations).
+Subject to a specific consent (obtained separately from this Privacy Policy), to allow you to participate in surveys and other forms of market research, contests and similar promotions and to administer these activities. Some of these activities have additional rules, which may contain additional information about how Data is used and shared.
+To allow you to apply for Products (e.g., to prequalify for a loan, apply for a credit card, or to open an account, investment account, insurance or other financial product) including to pre-populate any Data during any application whether directly by us or through any service provider on any platform.
+Subject to your specific consent in this regard, to sell, cross-sell, distribute or refer to you any Products (by us or through any of the Processing Entities) and for such purpose we may assess your credit worthiness or your eligibility through such means as feasible and for such activity we may also share the Data with/ receive from third parties.
+Where we have your consent to do so.
+We may also contact you or send you messages, notifications or alerts by post, telephone, text, email, WhatsApp, through social media, POS machines and other digital methods, including for example via our ATMs, mobile applications, push notifications, or online banking services (and new methods that may become available in the future).
+For any purposes which are incidental or necessary to any of the aforesaid purposes.  
+You agree that HDFC Bank may engage with any Processing Entity, for any of the aforesaid purposes or part thereof for any incidental or ancillary purposes, and may accordingly share Data with any of them and allow them to further process/ share the same, for the said purposes.
+
+Automated processing
+
+The way your personal information is analysed in relation to the Products including applications, credit decisions, determining your eligibility for the Products, may involve automated profiling and decision making, this means that your Data may be processed using software that is able to evaluate your personal aspects and predict risks or outcomes as also where the decision making may be automated. 
+
+We may also carry out automated anti-money laundering and sanctions checks. This means that we may automatically decide that you pose a fraud or money laundering risk if the processing reveals your behaviour to be consistent with money laundering or known fraudulent conduct, is inconsistent with your previous submissions, or you appear to have deliberately hidden your true identity.
+
+Who we share your Data with?
+
+We may share the Data with the following persons and/or in the following circumstances:
+
+With subsidiaries and/or affiliates in an effort to bring you improved services across our family of Products, when permissible under relevant laws and regulations or with consent.
+With service providers, vendors, agents etc. who perform services for us or assist us/ our subsidiaries/ affiliates to operate the business or provide the Products or services (own or where we/ our subsidiaries/ affiliates distribute, refer or act as agent etc.), intermediaries or consultants.
+Entities or persons with whom we have tie-ups for the co-branded services, products or programs, any rewards programs or loyalty programs, any benefits, offers, features or any similar arrangements.
+With co-lenders, co-originators, collaborators, and persons with whom the Bank may have a tie-up for any Products.
+Other third parties to comply with legal requirements such as the demands of applicable warrants, court orders; to verify or enforce our terms of use, our other rights, or other applicable policies; to address fraud, security or technical issues; to respond to an emergency; or otherwise to protect the rights, property or security of our customers or third parties.
+We may share your Data, without obtaining your consent or without intimating you: (a) with governmental, statutory, regulatory, executive, law-enforcement, investigating or judicial/ quasi-judicial authorities, departments, instrumentalities, agencies, institutions, boards, commissions, courts, tribunals, who ask for such Data including by way of an order, direction, etc; or (b) with any person, where disclosure is necessary for compliance of any legal or regulatory obligation. Wherever the Data is shared as above, we will not have  control over how such Data is further processed by such authorities, persons, etc. (both under ‘a’ and ‘b’ above).
+Credit information companies, bureaus, fintech entities, Central KYC Records Registry, or service providers for the purposes of obtaining any reports, credit scores, credit information, scrubs, financial standing, fraud check, fraud probability, reference checks, due diligence, inspections, risk analysis etc.
+With any persons involved in Derivation.
+With any persons involved in any payment system or infrastructure or architecture of which HDFC Bank is a part including NACH, UPI, ECS, ATM portability, IMPS, RTGS, NEFT etc. or with any persons (including TPAP) to whom the Bank acts as a service provider, distributor, agent, referral entity, promoter, marketer, sponsor bank, PSP bank, trustee, etc. where you are part of any payment or withdrawal or transaction or purchase/ sale/ distribution of any Product, whether as payee, payer, beneficiary, intermediary, distributor etc. and whether your interface/ interaction is directly with us or not or with any such other person or any platform/app.
+
+The Data may also be shared by any of the aforesaid entities/ persons with their service providers, consultants, agents, subsidiaries, affiliates, co-brand entity/partner, distributors, selling/ marketing agents, any partners, fintech companies, other players/ intermediaries in any ecosystem of which we are a part, TPAPs (for whom we act as PSP bank), collaborators, co-lenders, co-originators, merchants, aggregators, lead generators, sourcing entities, clients, customers  or other persons with whom we have a tie-up or contract for any products or services etc. for any of the aforesaid purposes or any purposes incidental or necessary thereto. Any person or entity with whom the Data or any part thereof is shared by us or further shared by any of them, for any of purposes under this Privacy Policy, shall be referred to as a “Processing Entity”. [Wherever the Data is shared with any Processing Entity (with whom we have direct contract), we will through such contracts restrict the processing by them of such Data for the aforesaid purposes.]
+
+For further information, please refer to the Products’ specific terms and conditions and application form.
+
+
+
+Consent Withdrawal 
+
+
+In the event you wish to withdraw your consent to processing of your personal data, you may do so by sending us the duly filled ( Modified Date 4 April 2024 ) Consent Withdrawal Form  to – privacy@hdfcbank.com using your registered mail ID.​​​​​​​ Post successful verification of your consent withdrawal request, the Bank will process it promptly but no later than 30 business days. Please note that the Bank may continue to retain certain Data including personal data to comply with its legal and regulatory obligations. Withdrawal of consent may also impact certain Products or services being provided to you at the time.
+
+
+Period of storage of the Data
+
+We will keep the Data we collect on our systems or with third parties for as long as required for the purposes set out above or even beyond the expiry of transactional or account based relationship with you: (a) as required to comply with any legal and regulatory obligations to which we are subject, or (b) for establishment, exercise or defence of legal claims, or (c) as specified in this Privacy Policy, or (d) in accordance with specific consents.
+
+Reasonable security practices and procedures
+
+HDFC Bank is ISO 27001:13 compliant. We seek to use reasonable organizational, technical and administrative measures to protect Data within our organization. However, if you have reason to believe that your interaction with us is no longer secure, please immediately notify us in accordance with the ‘How to contact us’ section.
+
+Links/ Re-direction to Other Websites/ Platforms
+
+From time to time, our website/ webpage/ platform/ apps may contain links or have a mechanism of re-direction to and from websites/ webpages/ platforms/ apps of other networks, advertisers, affiliates and Processing Entities. If you follow a link or such re-direction to any of these websites/ webpages/ platforms/ apps, please note that these websites/ webpages/ platforms/ apps may have their own privacy notices and that we do not accept any responsibility or liability for any such notices. Please check such notices, where available, before you submit any Data to these websites/ webpages/ platforms/ apps.
+
+Right to review
+
+Please note that the accuracy of the Data provided to us is essential, among others, for the provision of Products to you. It is therefore mandatory that you ensure the accuracy and completeness of all Data disclosed or shared. Without prejudice to any rights and remedies of the Bank under any contract in this regard, you shall be able to review the Data that you had provided and correct or amend as feasible any such Data which you find to be inaccurate or deficient. You may do this by following the process prescribed by HDFC Bank in this regard. For knowing the process you may contact HDFC Bank as per the section ‘How to contact us’ under this Privacy Policy.
+
+Provided that HDFC Bank shall not be responsible for the authenticity of the Data supplied by you to Bank or any other person acting on behalf of the Bank.
+
+Cookies
+
+We may use cookies and similar technologies on our websites, mobile apps, and in our emails. Cookies are text files that get small amounts of information, which your computer or mobile device stores when you visit a website or use a mobile app. For more details in this regard you may please refer to our separate Cookie Policy available on our website.
+
+How to contact us
+
+You may contact our Privacy Contact at privacy@hdfcbank.com
+
+Changes to this Privacy Policy
+
+Our products, services, facilities, features, functionalities, and nuances thereof change constantly and our Privacy Policy will change also. You will be responsible for apprising yourself about the Privacy Policy and change, if any, on each use of our website or Apps, platforms or while applying for or making service requests for any Product or during usage of any Product or usage of any functionality. Without limiting your responsibility to keep yourself updated as above, we may update you that a change has been made through any channels of communication including in App notifications, general banner on website, sms, e-mail, social media messages, etc.  The changed Privacy Policy shall be effective as soon as it is published/posted/hosted on our website/respective Apps/platforms. If you use our website or Apps, platforms or make any application/request for any Product or use any Product or make any service requests for or during usage of any Product or if you use any functionality provided by or for us, such act of any of aforesaid uses shall by itself amount to your acceptance of the Privacy Policy with changes, if any.
+
+This Privacy Policy shall be governed by the laws of India and any disputes arising out of or in relation to this Privacy Policy shall be subject to the jurisdiction of courts/ tribunals of Mumbai, India.
