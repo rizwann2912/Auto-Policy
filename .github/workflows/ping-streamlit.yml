@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ping Streamlit Cloud App
+      - name: Ping Streamlit App
         run: |
-          curl -f https://policy-analyzer.streamlit.app || exit 1
+          curl -A "Mozilla/5.0" -f https://policy-analyzer.streamlit.app || exit 1
