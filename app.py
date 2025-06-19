@@ -7,7 +7,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
 from summarizer import Policy_Summarizer
 from extractor import PolicyExtractor
-from comparator import PolicyComparator
 from database import init_db, save_policy_to_db, load_policies_from_db
 
 # Page config
